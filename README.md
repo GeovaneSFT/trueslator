@@ -1,15 +1,20 @@
 # Manga Translator
 
+ALL CREDITS TO [@Detopall](https://github.com/Detopall)
+
 ## Table of Contents
 
-- [Introduction](#introduction)
-- [Approach](#approach)
-  - [Data Collection](#data-collection)
-  - [Yolov8](#yolov8)
-  - [Manga-ocr](#manga-ocr)
-  - [Deep-translator](#deep-translator)
-- [Server](#server)
-- [Demo](#demo)
+- [Manga Translator](#manga-translator)
+  - [Table of Contents](#table-of-contents)
+  - [Introduction](#introduction)
+  - [Approach](#approach)
+    - [Data Collection](#data-collection)
+    - [Yolov8](#yolov8)
+    - [Manga-ocr](#manga-ocr)
+    - [Deep-translator](#deep-translator)
+  - [Using Microsoft Translator](#using-microsoft-translator)
+  - [Server](#server)
+  - [Demo](#demo)
 
 ## Introduction
 
@@ -40,6 +45,33 @@ Optical character recognition for Japanese text, with the main focus being Japan
 ### Deep-translator
 
 `Deep-translator` is a Python package that uses the Google Translate API to translate text from one language to another. I will use `deep-translator` to translate the text extracted from the manga images from Japanese to English.
+
+## Using Microsoft Translator
+
+For the project to work properly with Microsoft Translator, you will need to change a block in `microsoft.py` from deep-translator lib to something like this:  
+
+line 86:
+```
+if is_input_valid(text):
+            params = {"to": self._target}
+            if self._source != "auto":
+                params["from"] = self._source
+
+            valid_microsoft_json = [{"text": text}]
+            try:
+                response = requests.post(
+                    self._base_url,
+                    params=params,
+                    headers=self.headers,
+                    json=valid_microsoft_json,
+                    proxies=self.proxies,
+                )
+            except requests.exceptions.RequestException:
+                exc_type, value, traceback = sys.exc_info()
+                logging.warning(f"Returned error: {exc_type.__name__}")
+```
+
+
 
 ## Server
 

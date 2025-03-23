@@ -2,7 +2,7 @@ ipykernel==6.29.4
 pillow==10.3.0
 ultralytics==8.3.78
 manga-ocr==0.1.14
-googletrans==4.0.0-rc1
+googletrans
 deep-translator==1.11.4
 fastapi
 uvicorn==0.30.0

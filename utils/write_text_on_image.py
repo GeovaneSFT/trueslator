@@ -12,14 +12,14 @@ def add_text(image: np.ndarray, text: str, contour: np.ndarray):
 	Add text to an image with a bounding box.
 	"""
 
-	font_path = "./fonts/fonts_animeace_i.ttf"
+	font_path = "./fonts/mangat.ttf"
 	pil_image = Image.fromarray(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
 	draw = ImageDraw.Draw(pil_image)
 
 	x, y, w, h = cv2.boundingRect(contour)
 
 	line_height = 16
-	font_size = 14
+	font_size = 16
 	wrapping_ratio = 0.075
 
 	wrapped_text = textwrap.fill(text, width=int(w * wrapping_ratio),
@@ -57,3 +57,4 @@ def add_text(image: np.ndarray, text: str, contour: np.ndarray):
 		text_y += line_height
 
 	image[:, :, :] = cv2.cvtColor(np.array(pil_image), cv2.COLOR_RGB2BGR)
+	return image
